@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <assert.h>
 
+#define TESTCODE_ENV 1
+#define PRODUCTION_ENV 2
+
+int Current_Env = TESTCODE_ENV;
 int alertFailureCount = 0;
 
 int networkAlertStub(float celcius) {
@@ -12,8 +16,19 @@ int networkAlertStub(float celcius) {
 }
 
 void alertInCelcius(float farenheit) {
+    
+    int returnCode;
+    
     float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
+    
+    if(Current_Env == TESTCODE_ENV)
+    {
+        returnCode = networkAlertStub(celcius);
+    }
+    else
+    {
+       returnCode =(int)celcius;
+    }
     if (returnCode != 200) {
         // non-ok response is not an error! Issues happen in life!
         // let us keep a count of failures to report
@@ -26,6 +41,7 @@ void alertInCelcius(float farenheit) {
 int main() {
     alertInCelcius(400.5);
     alertInCelcius(303.6);
+    assert(alertFailureCount != 0);
     printf("%d alerts failed.\n", alertFailureCount);
     printf("All is well (maybe!)\n");
     return 0;
