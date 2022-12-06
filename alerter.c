@@ -2,11 +2,11 @@
 #include <assert.h>
 
 
-#define INTEGRATION_ENV  1
-#define TEST_ENV         2
+#define PRODUCTION_ENV  1
+#define TESTCODE_ENV         2
 
 int alertFailureCount = 0;
-int Current_Env = INTEGRATION_ENV;
+int Current_Env = PRODUCTION_ENV;
 
 /*Conversion from farenheit to celcius*/
 float convertfarenheittocelcius(float farenheit)
@@ -43,7 +43,7 @@ int networkAlertProduction(float celcius){
 float SelectAlertEnvironment(float celcius, int Current_Env)
 {
    float calculated_Value;
-   if(Current_Env == INTEGRATION_ENV )
+   if(Current_Env == PRODUCTION_ENV )
    {
 	   /*Select Production environmnt*/
      calculated_Value = networkAlertProduction(celcius);
@@ -73,9 +73,9 @@ void alertInCelcius(float farenheit,int Current_Env) {
 int main() {
     alertInCelcius(380.5,TESTCODE_ENV);
     assert(alertFailureCount == 0);
-    alertInCelcius(303.6,INTEGRATION_ENV);
+    alertInCelcius(303.6,PRODUCTION_ENV);
     assert(alertFailureCount == 0);
-    alertInCelcius(515.5,INTEGRATION_ENV);
+    alertInCelcius(515.5,PRODUCTION_ENV);
     assert(alertFailureCount == 1);
     alertInCelcius(515.5,TESTCODE_ENV);
     assert(alertFailureCount == 2);
