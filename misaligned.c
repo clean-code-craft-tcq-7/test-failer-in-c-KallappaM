@@ -4,7 +4,7 @@
 const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
 const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
 
-int ValidateColorFromPair(int index, char* maj,char* min);
+int ValidateColorFromPair(int index, const char* maj,const char* min);
 
 int printColorMap() 
 {
@@ -21,7 +21,7 @@ return i * j;
 }
 
 
-int ValidateColorFromPair(int index, char* maj, char* min)
+int ValidateColorFromPair(int index, const char* maj, const char* min)
 {
  int majindex = ((index))/5;
  int minindex = ((index))%5;
