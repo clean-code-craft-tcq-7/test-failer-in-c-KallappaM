@@ -15,18 +15,6 @@ float convertfarenheittocelcius(float farenheit)
     return celcius;
 }
 
-int networkAlertStub(float celcius) {
-    printf("ALERT: Temperature is %.1f celcius.\n", celcius);
-    if(celcius<=200)
-    {
-     return 200;
-     }
-    else
-    {
-     return 500;
-    }
-}
-
 int networkAlertProduction(float celcius){
   if(celcius<=200)
   {
@@ -38,6 +26,10 @@ int networkAlertProduction(float celcius){
   }
 }  
 
+int networkAlertStub(float celcius) {
+    printf("ALERT: Temperature is %.1f celcius.\n", celcius);
+    return networkAlertProduction(celcius);
+}
 
 /*Selection of the environment: Productio/Testing */
 float SelectAlertEnvironment(float celcius, int Current_Env)
